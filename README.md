@@ -21,6 +21,9 @@ Configurations are located externally under "config" folder. One of the followin
 
 # Execution
 In order to run application on docker following commands must be executed:
-* development: `docker-compose -f docker-compose.yml -f docker-compose-development.yml up`
-* test: `docker-compose -f docker-compose.yml -f docker-compose-test.yml up`
-* prod: `docker-compose -f docker-compose.yml -f docker-compose-prod.yml up`
+* development: `docker-compose -f docker-compose.yml -f docker-compose-development.yml up --build`
+* test: `docker-compose -f docker-compose.yml -f docker-compose-test.yml up --build`
+* prod: `docker-compose -f docker-compose.yml -f docker-compose-prod.yml up --build`
+
+# Test
+While the application is deployed, API Guide can be accessed through path [/api-guide.html](http://localhost:8080/api-guide.html) 

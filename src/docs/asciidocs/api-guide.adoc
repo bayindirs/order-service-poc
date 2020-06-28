@@ -1,0 +1,124 @@
+= Order Service API Guide
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+
+[[overview]]
+= Overview
+
+[[overview-http-verbs]]
+
+|===
+| Status code | Usage
+
+| `200 OK`
+| The request completed successfully
+
+| `400 Bad Request`
+| The request was malformed. The response body will include an error providing further information
+
+| `404 Not Found`
+| The requested resource did not exist
+|===
+
+[[resources]]
+= Resources
+
+[[resources-order]]
+== Order
+
+Order management API
+
+[[resources-order-listOrders]]
+=== Accessing the orders
+
+A `GET` request is used to access the orders
+
+==== Request structure
+
+include::{snippets}/list-orders/http-request.adoc[]
+
+==== Example response
+
+include::{snippets}/list-orders/http-response.adoc[]
+
+==== CURL request
+
+include::{snippets}/list-orders/curl-request.adoc[]
+
+[[resources-order-createOrder]]
+=== Creating New Orders
+
+A `POST` request is used to create order
+
+==== Request structure
+
+include::{snippets}/create-order/http-request.adoc[]
+
+==== Example response
+
+include::{snippets}/create-order/http-response.adoc[]
+
+==== CURL request
+
+include::{snippets}/create-order/curl-request.adoc[]
+
+[[resources-order-updateOrder]]
+=== Updating Existing Orders
+
+A `PUT` request is used to update existing order
+
+==== Request structure
+
+include::{snippets}/update-order/http-request.adoc[]
+
+==== Example response
+
+include::{snippets}/update-order/http-response.adoc[]
+
+==== CURL request
+
+include::{snippets}/update-order/curl-request.adoc[]
+
+[[resources-order-cancelOrder]]
+=== Canceling Existing Orders
+
+A `DELETE` request is used to cancel existing orders, only new orders may be canceled.
+
+==== Request structure
+
+include::{snippets}/cancel-order/http-request.adoc[]
+
+==== Example response
+
+include::{snippets}/cancel-order/http-response.adoc[]
+
+==== CURL request
+
+include::{snippets}/cancel-order/curl-request.adoc[]
+
+[[resources-order-cancelOrder]]
+=== Complete Orders
+
+A `POST` request is used to complete orders, only new orders may be completed.
+
+==== Request structure
+
+include::{snippets}/complete-order/http-request.adoc[]
+
+==== Example response
+
+include::{snippets}/complete-order/http-response.adoc[]
+
+==== CURL request
+
+include::{snippets}/complete-order/curl-request.adoc[]
+
+
+
+
+
+

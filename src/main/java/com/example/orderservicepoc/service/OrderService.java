@@ -4,7 +4,7 @@ import com.example.orderservicepoc.api.OrderInfo;
 import com.example.orderservicepoc.api.OrderItemInfo;
 import com.example.orderservicepoc.data.OrderRepository;
 import com.example.orderservicepoc.exception.RequestArgumentNotValidException;
-import com.example.orderservicepoc.model.Order;
+import com.example.orderservicepoc.model.OrderEntity;
 import com.example.orderservicepoc.model.OrderItem;
 import com.example.orderservicepoc.model.OrderStatus;
 import com.example.orderservicepoc.util.DateUtil;
@@ -35,11 +35,11 @@ public class OrderService {
   @Autowired
   OrderRepository orderRepository;
 
-  public List<Order> findOrders() {
+  public List<OrderEntity> findOrders() {
     return orderRepository.findAll();
   }
 
-  public Order createOrder(OrderInfo orderInfo) {
+  public OrderEntity createOrder(OrderInfo orderInfo) {
     Date orderDate;
     try {
       orderDate = DateUtil.fromString(orderInfo.getOrderDate());
@@ -50,7 +50,7 @@ public class OrderService {
       throw new RequestArgumentNotValidException("orderDate", ERROR_ORDER_DATE_CANNOT_BE_PAST_DATE);
     }
 
-    Order order = new Order();
+    OrderEntity order = new OrderEntity();
     order.setCustomerId(orderInfo.getCustomerId());
     order.setOrderDate(orderDate);
     order.setStatus(OrderStatus.NEW);
@@ -73,8 +73,8 @@ public class OrderService {
     return new ArrayList<>();
   }
 
-  public Order updateOrder(String orderId, OrderInfo orderInfo) {
-    Order order = findOrder(orderId);
+  public OrderEntity updateOrder(String orderId, OrderInfo orderInfo) {
+    OrderEntity order = findOrder(orderId);
     if (!order.getStatus().equals(OrderStatus.NEW)) {
       throw new RequestArgumentNotValidException("status", ERROR_ONLY_NEW_ORDER_CAN_BE_UPDATED);
     }
@@ -96,8 +96,8 @@ public class OrderService {
     return orderRepository.save(order);
   }
 
-  public Order cancelOrder(String orderId) {
-    Order order = findOrder(orderId);
+  public OrderEntity cancelOrder(String orderId) {
+    OrderEntity order = findOrder(orderId);
     if (!order.getStatus().equals(OrderStatus.NEW)) {
       throw new RequestArgumentNotValidException("status", ERROR_ONLY_NEW_ORDER_CAN_BE_CANCELED);
     }
@@ -106,8 +106,8 @@ public class OrderService {
     return orderRepository.save(order);
   }
 
-  public Order completeOrder(String orderId) {
-    Order order = findOrder(orderId);
+  public OrderEntity completeOrder(String orderId) {
+    OrderEntity order = findOrder(orderId);
     if (!order.getStatus().equals(OrderStatus.NEW)) {
       throw new RequestArgumentNotValidException("status", ERROR_ONLY_NEW_ORDER_CAN_BE_COMPLETED);
     }
@@ -116,8 +116,8 @@ public class OrderService {
     return orderRepository.save(order);
   }
 
-  private Order findOrder(String orderId) {
-    Optional<Order> optionalOrder = orderRepository.findById(orderId);
+  private OrderEntity findOrder(String orderId) {
+    Optional<OrderEntity> optionalOrder = orderRepository.findById(orderId);
     if (!optionalOrder.isPresent()) {
       throw new RequestArgumentNotValidException("orderId", ERROR_ORDER_NOT_FOUND);
     }

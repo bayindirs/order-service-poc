@@ -1,7 +1,7 @@
 package com.example.orderservicepoc.api;
 
 import com.example.orderservicepoc.data.OrderRepository;
-import com.example.orderservicepoc.model.Order;
+import com.example.orderservicepoc.model.OrderEntity;
 import com.example.orderservicepoc.model.OrderItem;
 import com.example.orderservicepoc.util.DateUtil;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,20 +36,20 @@ class ListOrdersTest extends DocumentedMvcTest {
 
   @Test
   void listOrders() throws Exception {
-    List<Order> orders = mockOrders();
+    List<OrderEntity> orders = mockOrders();
     when(orderRepository.findAll()).thenReturn(orders);
     ResultActions resultActions = mockMvc.perform(listOrderRequest());
     resultActions.andDo(print()).andExpect(status().isOk());
     assertOrders(orders, resultActions);
   }
 
-  private void assertOrders(List<Order> orders, ResultActions resultActions) throws Exception {
-    for (Order order : orders) {
+  private void assertOrders(List<OrderEntity> orders, ResultActions resultActions) throws Exception {
+    for (OrderEntity order : orders) {
       assertOrder(order, resultActions);
     }
   }
 
-  private void assertOrder(Order order, ResultActions resultActions) throws Exception {
+  private void assertOrder(OrderEntity order, ResultActions resultActions) throws Exception {
     String orderPath = String.format("$[?(@.id == '%s')]", order.getId());
     resultActions
             .andExpect(jsonPath(orderPath).exists())
@@ -60,13 +60,13 @@ class ListOrdersTest extends DocumentedMvcTest {
     assertOrderItems(order, resultActions);
   }
 
-  private void assertOrderItems(Order order, ResultActions resultActions) throws Exception {
+  private void assertOrderItems(OrderEntity order, ResultActions resultActions) throws Exception {
     for (OrderItem orderItem : order.getItems()) {
       assertOrderItem(order, orderItem, resultActions);
     }
   }
 
-  private void assertOrderItem(Order order, OrderItem orderItem, ResultActions resultActions)
+  private void assertOrderItem(OrderEntity order, OrderItem orderItem, ResultActions resultActions)
           throws Exception {
     String orderPath = String.format("$[?(@.id == '%s')]", order.getId());
     String itemPath = orderPath + String.format(".items[?(@.id == '%s')]", orderItem.getId());

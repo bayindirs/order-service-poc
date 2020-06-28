@@ -2,7 +2,7 @@ package com.example.orderservicepoc.api;
 
 import com.example.orderservicepoc.data.OrderRepository;
 import com.example.orderservicepoc.data.OrderTestData;
-import com.example.orderservicepoc.model.Order;
+import com.example.orderservicepoc.model.OrderEntity;
 import com.example.orderservicepoc.model.OrderItem;
 import com.example.orderservicepoc.model.OrderStatus;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,8 +26,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class CancelOrderTest extends DocumentedMvcTest {
 
-  Order newOrder;
-  Order completedOrder;
+  OrderEntity newOrder;
+  OrderEntity completedOrder;
 
   @MockBean
   OrderRepository orderRepository;
@@ -55,10 +55,10 @@ public class CancelOrderTest extends DocumentedMvcTest {
       when(orderRepository.findById(newOrder.getId())).thenReturn(Optional.of(newOrder));
       when(orderRepository.findById(completedOrder.getId()))
               .thenReturn(Optional.of(completedOrder));
-      when(orderRepository.save(any(Order.class)))
+      when(orderRepository.save(any(OrderEntity.class)))
               .then(
                       invocationOnMock -> {
-                        Order order = invocationOnMock.getArgument(0);
+                        OrderEntity order = invocationOnMock.getArgument(0);
                         if (order.getId() == null) {
                           order.setId(UUID.randomUUID().toString());
                         }

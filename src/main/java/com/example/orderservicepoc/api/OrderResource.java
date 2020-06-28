@@ -1,6 +1,6 @@
 package com.example.orderservicepoc.api;
 
-import com.example.orderservicepoc.model.Order;
+import com.example.orderservicepoc.model.OrderEntity;
 import com.example.orderservicepoc.model.OrderItem;
 import com.example.orderservicepoc.model.OrderStatus;
 import com.example.orderservicepoc.util.DateUtil;
@@ -21,7 +21,7 @@ public class OrderResource {
     private String completeDate;
     private OrderStatus status;
 
-    public OrderResource(Order order) {
+    public OrderResource(OrderEntity order) {
         id = order.getId();
         customerId = order.getCustomerId();
         items = constructItems(order.getItems());

@@ -2,7 +2,7 @@ package com.example.orderservicepoc.api;
 
 import com.example.orderservicepoc.data.OrderRepository;
 import com.example.orderservicepoc.data.OrderTestData;
-import com.example.orderservicepoc.model.Order;
+import com.example.orderservicepoc.model.OrderEntity;
 import com.example.orderservicepoc.model.OrderItem;
 import com.example.orderservicepoc.model.OrderStatus;
 import com.example.orderservicepoc.util.DateUtil;
@@ -39,10 +39,10 @@ class CreateOrderTest extends DocumentedMvcTest {
   }
 
   private void setupSave() {
-    when(orderRepository.save(any(Order.class)))
+    when(orderRepository.save(any(OrderEntity.class)))
             .then(
                     invocationOnMock -> {
-                      Order order = invocationOnMock.getArgument(0);
+                      OrderEntity order = invocationOnMock.getArgument(0);
                       order.setId(UUID.randomUUID().toString());
                       for (OrderItem orderItem : order.getItems()) {
                         orderItem.setId(UUID.randomUUID().toString());

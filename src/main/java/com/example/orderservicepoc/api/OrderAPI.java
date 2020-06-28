@@ -1,6 +1,6 @@
 package com.example.orderservicepoc.api;
 
-import com.example.orderservicepoc.model.Order;
+import com.example.orderservicepoc.model.OrderEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -33,7 +33,7 @@ public class OrderAPI extends OrderAPIImpl {
 
   @PostMapping("/{orderId}/complete")
   public OrderResource completeOrder(@PathVariable String orderId) {
-    Order order = orderService.completeOrder(orderId);
+    OrderEntity order = orderService.completeOrder(orderId);
     return new OrderResource(order);
   }
 }

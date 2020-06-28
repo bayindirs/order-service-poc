@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 @Entity
-public class Order {
+public class OrderEntity {
 
   @Id
   @GeneratedValue(generator = "system-uuid")

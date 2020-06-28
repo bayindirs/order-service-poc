@@ -2,7 +2,7 @@ package com.example.orderservicepoc.data;
 
 import com.example.orderservicepoc.api.OrderInfo;
 import com.example.orderservicepoc.api.OrderItemInfo;
-import com.example.orderservicepoc.model.Order;
+import com.example.orderservicepoc.model.OrderEntity;
 import com.example.orderservicepoc.util.DateUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -17,9 +17,9 @@ public class OrderTestData {
 
   public static final String ORDER_DATA_FILE_PATH = "src/test/resources/data/order.json";
 
-  public static List<Order> mockOrders() throws Exception {
+  public static List<OrderEntity> mockOrders() throws Exception {
     try (FileReader fileReader = new FileReader(ORDER_DATA_FILE_PATH)) {
-      return newArrayList(gson().fromJson(fileReader, Order[].class));
+      return newArrayList(gson().fromJson(fileReader, OrderEntity[].class));
     }
   }
 
