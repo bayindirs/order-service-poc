@@ -27,7 +27,8 @@ public class OrderAPIImpl {
     return new OrderResource(order);
   }
 
-  protected void cancelOrder(String orderId) {
-    orderService.cancelOrder(orderId);
+  protected OrderResource cancelOrder(String orderId) {
+    Order order = orderService.cancelOrder(orderId);
+    return new OrderResource(order);
   }
 }

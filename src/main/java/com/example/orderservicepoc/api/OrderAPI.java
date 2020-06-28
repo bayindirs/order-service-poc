@@ -1,5 +1,6 @@
 package com.example.orderservicepoc.api;
 
+import com.example.orderservicepoc.model.Order;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -26,7 +27,13 @@ public class OrderAPI extends OrderAPIImpl {
   }
 
   @DeleteMapping("/{orderId}")
-  public void cancelOrder(@PathVariable String orderId) {
-    super.cancelOrder(orderId);
+  public OrderResource cancelOrder(@PathVariable String orderId) {
+    return super.cancelOrder(orderId);
+  }
+
+  @PostMapping("/{orderId}/complete")
+  public OrderResource completeOrder(@PathVariable String orderId) {
+    Order order = orderService.completeOrder(orderId);
+    return new OrderResource(order);
   }
 }

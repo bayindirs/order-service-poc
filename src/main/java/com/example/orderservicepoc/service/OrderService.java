@@ -29,6 +29,8 @@ public class OrderService {
   public static final String ERROR_ONLY_NEW_ORDER_CAN_BE_UPDATED = "ONLY_NEW_ORDER_CAN_BE_UPDATED";
   public static final String ERROR_ONLY_NEW_ORDER_CAN_BE_CANCELED =
           "ONLY_NEW_ORDER_CAN_BE_CANCELED";
+  public static final String ERROR_ONLY_NEW_ORDER_CAN_BE_COMPLETED =
+          "ONLY_NEW_ORDER_CAN_BE_COMPLETED";
 
   @Autowired
   OrderRepository orderRepository;
@@ -94,14 +96,24 @@ public class OrderService {
     return orderRepository.save(order);
   }
 
-  public void cancelOrder(String orderId) {
+  public Order cancelOrder(String orderId) {
     Order order = findOrder(orderId);
     if (!order.getStatus().equals(OrderStatus.NEW)) {
       throw new RequestArgumentNotValidException("status", ERROR_ONLY_NEW_ORDER_CAN_BE_CANCELED);
     }
     order.setStatus(OrderStatus.CANCELED);
     order.setCancelDate(new Date());
-    orderRepository.save(order);
+    return orderRepository.save(order);
+  }
+
+  public Order completeOrder(String orderId) {
+    Order order = findOrder(orderId);
+    if (!order.getStatus().equals(OrderStatus.NEW)) {
+      throw new RequestArgumentNotValidException("status", ERROR_ONLY_NEW_ORDER_CAN_BE_COMPLETED);
+    }
+    order.setStatus(OrderStatus.COMPLETED);
+    order.setCompleteDate(new Date());
+    return orderRepository.save(order);
   }
 
   private Order findOrder(String orderId) {

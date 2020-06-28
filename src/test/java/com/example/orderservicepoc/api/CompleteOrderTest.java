@@ -8,7 +8,6 @@ import com.example.orderservicepoc.model.OrderStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultActions;
@@ -20,14 +19,13 @@ import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class CancelOrderTest extends DocumentedMvcTest {
+public class CompleteOrderTest extends DocumentedMvcTest {
 
   Order newOrder;
-  Order completedOrder;
+  Order cancelledOrder;
 
   @MockBean
   OrderRepository orderRepository;
@@ -47,14 +45,14 @@ public class CancelOrderTest extends DocumentedMvcTest {
                       .filter(o -> o.getStatus().equals(OrderStatus.NEW))
                       .findAny()
                       .orElse(null);
-      completedOrder =
+      cancelledOrder =
               OrderTestData.mockOrders().stream()
                       .filter(o -> o.getStatus().equals(OrderStatus.COMPLETED))
                       .findAny()
                       .orElse(null);
       when(orderRepository.findById(newOrder.getId())).thenReturn(Optional.of(newOrder));
-      when(orderRepository.findById(completedOrder.getId()))
-              .thenReturn(Optional.of(completedOrder));
+      when(orderRepository.findById(cancelledOrder.getId()))
+              .thenReturn(Optional.of(cancelledOrder));
       when(orderRepository.save(any(Order.class)))
               .then(
                       invocationOnMock -> {
@@ -74,26 +72,23 @@ public class CancelOrderTest extends DocumentedMvcTest {
   }
 
   @Test
-  void cancelOrder() throws Exception {
-    ResultActions resultActions = mockMvc.perform(cancelOrderRequest(newOrder.getId()));
+  void completeOrder() throws Exception {
+    ResultActions resultActions = mockMvc.perform(completeOrderRequest(newOrder.getId()));
     resultActions
-            .andDo(print())
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.id").value(newOrder.getId()))
-            .andExpect(jsonPath("$.status").value(OrderStatus.CANCELED.name()));
+            .andExpect(jsonPath("$.status").value(OrderStatus.COMPLETED.name()));
   }
 
   @Test
-  void cancelOrderOnlyNewOrderCanBeCanceled() throws Exception {
-    ResultActions resultActions = mockMvc.perform(cancelOrderRequest(completedOrder.getId()));
+  void completeOrderOnlyNewOrderCanBeCompleted() throws Exception {
+    ResultActions resultActions = mockMvc.perform(completeOrderRequest(cancelledOrder.getId()));
     resultActions
             .andExpect(status().is4xxClientError())
-            .andExpect(jsonPath("$.errors.status").value("ONLY_NEW_ORDER_CAN_BE_CANCELED"));
+            .andExpect(jsonPath("$.errors.status").value("ONLY_NEW_ORDER_CAN_BE_COMPLETED"));
   }
 
-  private RequestBuilder cancelOrderRequest(String orderId) {
-    return MockMvcRequestBuilders.delete("/order/{orderId}", orderId)
-            .accept(MediaType.APPLICATION_JSON)
-            .characterEncoding("UTF-8");
+  private RequestBuilder completeOrderRequest(String orderId) {
+    return MockMvcRequestBuilders.post("/order/{orderId}/complete", orderId);
   }
 }
