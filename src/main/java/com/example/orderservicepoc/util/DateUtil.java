@@ -4,6 +4,7 @@ import org.springframework.util.StringUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class DateUtil {
@@ -22,5 +23,12 @@ public class DateUtil {
       return sdf.parse(stringDate);
     }
     return null;
+  }
+
+  public static Date addDay(Date date, int amount) {
+    Calendar calendar = Calendar.getInstance();
+    calendar.setTime(date);
+    calendar.add(Calendar.DAY_OF_MONTH, amount);
+    return calendar.getTime();
   }
 }

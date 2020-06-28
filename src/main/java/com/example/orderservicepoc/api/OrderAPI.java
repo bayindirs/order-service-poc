@@ -18,4 +18,10 @@ public class OrderAPI extends OrderAPIImpl {
   public OrderResource createOrder(@RequestBody @Valid OrderInfo orderInfo) {
     return super.createOrder(orderInfo);
   }
+
+  @PutMapping("/{orderId}")
+  public OrderResource updateOrder(
+          @PathVariable String orderId, @RequestBody @Valid OrderInfo orderInfo) {
+    return super.updateOrder(orderId, orderInfo);
+  }
 }

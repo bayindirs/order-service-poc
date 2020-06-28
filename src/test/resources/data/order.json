@@ -38,19 +38,6 @@
     ]
   },
   {
-    "id": "64f35f2a-4591-4c0a-925b-ea6d951feb1b",
-    "customerId": "customer-1",
-    "orderDate": "2020-01-20 23:01:05",
-    "status": "VERIFIED",
-    "items": [
-      {
-        "id": "20a7d377-4a06-4ab5-a983-149dfa069b8b",
-        "productCode": "product-2",
-        "quantity": 6
-      }
-    ]
-  },
-  {
     "id": "64f35f2a-4591-4c0a-925b-ea6d951feb1c",
     "customerId": "customer-1",
     "orderDate": "2020-01-21 21:01:05",

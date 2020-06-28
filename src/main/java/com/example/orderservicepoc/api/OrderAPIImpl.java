@@ -21,4 +21,9 @@ public class OrderAPIImpl {
     Order order = orderService.createOrder(orderInfo);
     return new OrderResource(order);
   }
+
+  protected OrderResource updateOrder(String orderId, OrderInfo orderInfo) {
+    Order order = orderService.updateOrder(orderId, orderInfo);
+    return new OrderResource(order);
+  }
 }

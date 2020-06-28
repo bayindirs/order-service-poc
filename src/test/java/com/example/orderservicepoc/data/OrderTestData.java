@@ -3,10 +3,12 @@ package com.example.orderservicepoc.data;
 import com.example.orderservicepoc.api.OrderInfo;
 import com.example.orderservicepoc.api.OrderItemInfo;
 import com.example.orderservicepoc.model.Order;
+import com.example.orderservicepoc.util.DateUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.FileReader;
+import java.util.Date;
 import java.util.List;
 
 import static org.assertj.core.util.Lists.newArrayList;
@@ -29,6 +31,7 @@ public class OrderTestData {
     OrderInfo orderInfo = new OrderInfo();
     orderInfo.setCustomerId("customer-id");
     orderInfo.setItems(newArrayList(orderItem("product-1", 2)));
+    orderInfo.setOrderDate(DateUtil.toString(DateUtil.addDay(new Date(), 1)));
     return orderInfo;
   }
 
