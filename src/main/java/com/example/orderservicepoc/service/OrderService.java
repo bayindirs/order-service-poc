@@ -27,6 +27,8 @@ public class OrderService {
   public static final String ERROR_ORDER_NOT_FOUND = "ORDER_NOT_FOUND";
   public static final String ERROR_CUSTOMER_INFO_DOES_NOT_MATCH = "CUSTOMER_INFO_DOES_NOT_MATCH";
   public static final String ERROR_ONLY_NEW_ORDER_CAN_BE_UPDATED = "ONLY_NEW_ORDER_CAN_BE_UPDATED";
+  public static final String ERROR_ONLY_NEW_ORDER_CAN_BE_CANCELED =
+          "ONLY_NEW_ORDER_CAN_BE_CANCELED";
 
   @Autowired
   OrderRepository orderRepository;
@@ -70,11 +72,7 @@ public class OrderService {
   }
 
   public Order updateOrder(String orderId, OrderInfo orderInfo) {
-    Optional<Order> optionalOrder = orderRepository.findById(orderId);
-    if (!optionalOrder.isPresent()) {
-      throw new RequestArgumentNotValidException("orderId", ERROR_ORDER_NOT_FOUND);
-    }
-    Order order = optionalOrder.get();
+    Order order = findOrder(orderId);
     if (!order.getStatus().equals(OrderStatus.NEW)) {
       throw new RequestArgumentNotValidException("status", ERROR_ONLY_NEW_ORDER_CAN_BE_UPDATED);
     }
@@ -94,5 +92,23 @@ public class OrderService {
     order.getItems().clear();
     order.setItems(createOrderItems(orderInfo.getItems()));
     return orderRepository.save(order);
+  }
+
+  public void cancelOrder(String orderId) {
+    Order order = findOrder(orderId);
+    if (!order.getStatus().equals(OrderStatus.NEW)) {
+      throw new RequestArgumentNotValidException("status", ERROR_ONLY_NEW_ORDER_CAN_BE_CANCELED);
+    }
+    order.setStatus(OrderStatus.CANCELED);
+    order.setCancelDate(new Date());
+    orderRepository.save(order);
+  }
+
+  private Order findOrder(String orderId) {
+    Optional<Order> optionalOrder = orderRepository.findById(orderId);
+    if (!optionalOrder.isPresent()) {
+      throw new RequestArgumentNotValidException("orderId", ERROR_ORDER_NOT_FOUND);
+    }
+    return optionalOrder.get();
   }
 }

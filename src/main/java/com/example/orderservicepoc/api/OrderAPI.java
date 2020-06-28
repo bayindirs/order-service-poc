@@ -24,4 +24,9 @@ public class OrderAPI extends OrderAPIImpl {
           @PathVariable String orderId, @RequestBody @Valid OrderInfo orderInfo) {
     return super.updateOrder(orderId, orderInfo);
   }
+
+  @DeleteMapping("/{orderId}")
+  public void cancelOrder(@PathVariable String orderId) {
+    super.cancelOrder(orderId);
+  }
 }
