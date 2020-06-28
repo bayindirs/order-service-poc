@@ -18,7 +18,7 @@ public class Order {
 
   private String customerId;
 
-  @OneToMany
+  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
   private List<OrderItem> items;
 
   private Date orderDate;

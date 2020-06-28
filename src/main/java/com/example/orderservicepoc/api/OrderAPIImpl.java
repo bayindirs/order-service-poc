@@ -9,11 +9,16 @@ import java.util.stream.Collectors;
 
 public class OrderAPIImpl {
 
-    @Autowired
-    OrderService orderService;
+  @Autowired
+  OrderService orderService;
 
-    protected List<OrderResource> listOrders() {
-        List<Order> orders = orderService.findOrders();
-        return orders.stream().map(OrderResource::new).collect(Collectors.toList());
-    }
+  protected List<OrderResource> listOrders() {
+    List<Order> orders = orderService.findOrders();
+    return orders.stream().map(OrderResource::new).collect(Collectors.toList());
+  }
+
+  protected OrderResource createOrder(OrderInfo orderInfo) {
+    Order order = orderService.createOrder(orderInfo);
+    return new OrderResource(order);
+  }
 }

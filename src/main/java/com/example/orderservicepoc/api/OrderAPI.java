@@ -1,9 +1,8 @@
 package com.example.orderservicepoc.api;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -13,5 +12,10 @@ public class OrderAPI extends OrderAPIImpl {
   @GetMapping
   public List<OrderResource> listOrders() {
     return super.listOrders();
+  }
+
+  @PostMapping
+  public OrderResource createOrder(@RequestBody @Valid OrderInfo orderInfo) {
+    return super.createOrder(orderInfo);
   }
 }

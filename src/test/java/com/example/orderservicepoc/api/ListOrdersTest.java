@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-class OrderAPITest extends DocumentedMvcTest {
+class ListOrdersTest extends DocumentedMvcTest {
 
   @MockBean
   OrderRepository orderRepository;
@@ -77,6 +77,7 @@ class OrderAPITest extends DocumentedMvcTest {
   }
 
   private RequestBuilder listOrderRequest() {
-    return MockMvcRequestBuilders.get("/order").accept(MediaType.APPLICATION_JSON);
+    return MockMvcRequestBuilders.get("/order")
+            .characterEncoding("UTF-8").accept(MediaType.APPLICATION_JSON);
   }
 }
