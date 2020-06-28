@@ -1,0 +1,5 @@
+version: '3'
+services:
+  order-sevice:
+    environment:
+      SPRING_PROFILES_ACTIVE: development
