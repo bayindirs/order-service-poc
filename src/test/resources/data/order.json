@@ -1,0 +1,79 @@
+[
+  {
+    "id": "10a7d377-4a06-4ab5-a983-149dfe069b8b",
+    "customerId": "customer-1",
+    "orderDate": "2020-01-13 23:01:05",
+    "completeDate": "2020-01-20 00:00:00",
+    "status": "COMPLETED",
+    "items": [
+      {
+        "id": "10a7d377-4a06-4ab5-a983-149dff069b8b",
+        "productCode": "product-1",
+        "quantity": 3
+      },
+      {
+        "id": "10a7d377-4a06-4bb5-a983-149dff069b8b",
+        "productCode": "product-2",
+        "quantity": 2
+      }
+    ]
+  },
+  {
+    "id": "64f35f2a-4591-4c0a-925b-ea6d951feb1a",
+    "customerId": "customer-1",
+    "orderDate": "2020-01-20 22:01:05",
+    "cancelDate": "2020-01-20 23:01:05",
+    "status": "CANCELED",
+    "items": [
+      {
+        "id": "10a7d377-4a06-4ab5-a983-149dfa069b8b",
+        "productCode": "product-3",
+        "quantity": 1
+      },
+      {
+        "id": "10a7d377-4a06-4bb5-a983-249dff069b8b",
+        "productCode": "product-4",
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "id": "64f35f2a-4591-4c0a-925b-ea6d951feb1b",
+    "customerId": "customer-1",
+    "orderDate": "2020-01-20 23:01:05",
+    "status": "VERIFIED",
+    "items": [
+      {
+        "id": "20a7d377-4a06-4ab5-a983-149dfa069b8b",
+        "productCode": "product-2",
+        "quantity": 6
+      }
+    ]
+  },
+  {
+    "id": "64f35f2a-4591-4c0a-925b-ea6d951feb1c",
+    "customerId": "customer-1",
+    "orderDate": "2020-01-21 21:01:05",
+    "status": "NEW",
+    "items": [
+      {
+        "id": "20a7d377-4b06-4ab5-a983-149dfa069b8b",
+        "productCode": "product-3",
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "id": "17cd2921-f408-49d0-881f-897d94adec25",
+    "customerId": "customer-2",
+    "orderDate": "2020-01-20 22:01:05",
+    "status": "NEW",
+    "items": [
+      {
+        "id": "20a7d377-4b16-4ab5-a983-149dfa069b8b",
+        "productCode": "product-1",
+        "quantity": 4
+      }
+    ]
+  }
+]
