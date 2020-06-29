@@ -92,7 +92,7 @@ public class OrderService {
       throw new RequestArgumentNotValidException("orderDate", ERROR_CANNOT_PARSE_ORDER_DATE);
     }
     order.getItems().clear();
-    order.setItems(createOrderItems(orderInfo.getItems()));
+    order.getItems().addAll(createOrderItems(orderInfo.getItems()));
     return orderRepository.save(order);
   }
 
